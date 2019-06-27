@@ -1,0 +1,85 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath,amscd}
+\usepackage[symbol]{footmisc}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{bm}
+\usepackage[english]{babel}
+\linespread{1.25}
+
+
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\D}{D}
+\DeclareMathOperator{\Real}{Re}
+\DeclareMathOperator{\T}{\text{\scriptsize T}}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+
+\begin{document}
+
+
+\section{A general formula for every $p$}
+The first problem is to write $\Tr D^p$ in a useful form, along the lines of Eq.(\ref{eq:trd4}).\newline
+$\Tr D^p$ expands to:
+\begin{align}
+\Tr D^p &= \sum_{i_1 \ldots i_p} \Tr \omega_{i_1} \ldots \omega_{i_p} \cdot \notag \\
+&\Tr \big( (M_{i_1} \otimes I + \epsilon_{i_1} I \otimes M_{i_1}^T) \ldots  (M_{i_p} \otimes I + \epsilon_{i_p} I \otimes M_{i_p}^T) \big)
+\end{align}
+Ignoring (for now) the trace over the $\omega$ matrices, a typical term in the sum is:
+\begin{equation}\label{eq:typical}
+\Tr \big( \epsilon_B A \otimes B^* + \epsilon_A B \otimes A^* \big)
+\end{equation}
+where $A$ and $B$ are related to the product $M_{i_1} \ldots M_{i_p}$ in the following way:
+\begin{enumerate}
+\item pick $r \geq 0$ numbers $k_1 < \ldots < k_r$ from $\{1, \ldots , p\}$ and call the remaining $p-r$ numbers $j_1 < \ldots < j_{p-r}$;
+\item define $A = M_{i_{k_1}} \ldots M_{i_{k_r}}$ and $B = M_{i_{j_1}} \ldots M_{i_{j_{p-r}}}$ (if $r=0$, $A=I$);
+\item define $\epsilon_A = \epsilon_{i_{k_1}} \ldots \epsilon_{i_{k_r}}$ and $\epsilon_B = \epsilon_{i_{j_1}} \ldots \epsilon_{i_{j_{p-r}}} = \epsilon_A \epsilon_{i_1} \ldots \epsilon_{i_p}$.
+\end{enumerate}
+In particular, a choice of $A$ completely characterizes $B$. \newline
+By varying $r$ from $0$ to $\left[\frac{p}{2}\right]$ and summing over all possible choices of $k_1 \ldots k_r$, every term in $\Tr D^p$ is generated.\newline
+One can verify that every term in Eq.(\ref{eq:trd4}) ($p=4$) is of that type. For example:
+\begin{align}
+\Tr M_{i_1} [\epsilon_{i_1} &+ \epsilon_{i_2} \epsilon_{i_3} \epsilon_{i_4} *] \Tr ( M_{i_2} M_{i_3} M_{i_4}) = \notag \\
+&\epsilon_{i_2} \epsilon_{i_3} \epsilon_{i_4} \Tr M_{i_1} \Tr (M_{i_2} M_{i_3} M_{i_4})^* + \epsilon_{i_1} \Tr M_{i_1} \Tr ( M_{i_2} M_{i_3} M_{i_4}) = \notag \\
+&\epsilon_{i_2} \epsilon_{i_3} \epsilon_{i_4} \Tr M_{i_1} \Tr (M_{i_2} M_{i_3} M_{i_4})^* + \epsilon_{i_1} \Tr (M_{i_1})^* \Tr ( M_{i_2} M_{i_3} M_{i_4}) = \notag \\
+&\Tr \big( \epsilon_{i_2} \epsilon_{i_3} \epsilon_{i_4}  M_{i_1} \otimes (M_{i_2} M_{i_3} M_{i_4})^* + \epsilon_{i_1}  M_{i_2} M_{i_3} M_{i_4} \otimes M_{i_1}^*  \big)
+\end{align}
+which is of the form of Eq.(\ref{eq:typical}) upon identifying $M_{i_1}$ with $A$ and $M_{i_2} M_{i_3} M_{i_4}$ with $B$ (in the second equality the reality of $\Tr M_{i_1}$ has been used). \newline
+A way of expressing $\Tr B$ given $A$ is using a modified derivative operator $\D_i$ defined as:
+\begin{equation}
+\D_i \equiv \Tr \ \circ \ \frac{\partial}{\partial M_i} 
+\end{equation}
+which allows to write:
+\begin{equation}
+A = M_{i_{k_1}} \ldots M_{i_{k_r}} \implies \Tr B = \D_{i_{k_r}} \ldots \D_{i_{k_1}} \Tr (M_{i_1} \ldots M_{i_p}).
+\end{equation}
+Therefore Eq.(\ref{eq:typical}) becomes:
+\begin{align}
+\epsilon_A&[1+ \epsilon_{i_1} \ldots \epsilon_{i_p} *] (\Tr A)^* \Tr B = \notag \\
+&\epsilon_{i_{k_1}} \ldots \epsilon_{i_{k_r}}[1 + \epsilon_{i_1} \ldots \epsilon_{i_p} * ] (\Tr M_{i_{k_1}} \ldots M_{i_{k_r}})^* \big( \D_{i_{k_r}} \ldots \D_{i_{k_1}} \Tr (M_{i_1} \ldots M_{i_p}) \big).
+\end{align}
+There are some special cases that make the expression simpler, namely:
+\begin{enumerate}
+\item $r=0$ gives a factor $\Tr I = n$;
+\item $r=1, 2$ make $\Tr A$ real;
+\item $p-r=1, 2$ (which can only occur for $p=2, 4$) make $\Tr B$ real. 
+\end{enumerate}
+Putting everything together, $\Tr D^p$ can be written as:
+\begin{align}
+\Tr D^p = \sum_{i_1 \ldots i_p} \Tr \ &\omega_{i_1} \ldots \omega_{i_p} \Bigg[ \sum_{r=0}^{\left[\frac{p}{2}\right]} \ \sum_{k_1 < \ldots < k_r = 1}^p  \epsilon_{i_{k_1}} \ldots \epsilon_{i_{k_r}} [1 + \epsilon_{i_1} \ldots \epsilon_{i_p} * ] \notag \\
+&(\Tr M_{i_{k_1}} \ldots M_{i_{k_r}})^* \big( \D_{i_{k_r}} \ldots \D_{i_{k_1}} \Tr (M_{i_1} \ldots M_{i_p}) \big) \Bigg]. \notag \\
+\end{align}
+where:
+\begin{align}
+r=0 \quad &\longrightarrow \quad n[1+\epsilon_{i_1} \ldots \epsilon_{i_p}*]\Tr (M_{i_1} \ldots M_{i_p}) \\
+r=1 \quad &\longrightarrow \quad \sum_{k_1 = 1}^p \epsilon_{i_{k_1}}  \Tr (M_{i_{k_1}}) [1+\epsilon_{i_1} \ldots \epsilon_{i_p}*] \D_{i_{k_1}} \Tr (M_{i_1} \ldots M_{i_p}) \\
+r=2 \quad &\longrightarrow \quad \sum_{k_1<k_2 = 1}^p \epsilon_{i_{k_1}} \epsilon_{i_{k_2}}  \Tr (M_{i_{k_1}} M_{i_{k_2}}) [1+\epsilon_{i_1} \ldots \epsilon_{i_p}*] \D_{i_{k_2}} \D_{i_{k_1}} \Tr (M_{i_1} \ldots M_{i_p}).
+\end{align}
+
+
+\end{document}
