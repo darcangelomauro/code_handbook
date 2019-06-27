@@ -23,63 +23,44 @@
 \begin{document}
 
 
-\section{A general formula for every $p$}
-The first problem is to write $\Tr D^p$ in a useful form, along the lines of Eq.(\ref{eq:trd4}).\newline
+\section{Powers of $D$}
+For many applications it is useful to write $\Tr D^p$ in a meaningful form.\newline
 $\Tr D^p$ expands to:
-\begin{align}
-\Tr D^p &= \sum_{i_1 \ldots i_p} \Tr \omega_{i_1} \ldots \omega_{i_p} \cdot \notag \\
-&\Tr \big( (M_{i_1} \otimes I + \epsilon_{i_1} I \otimes M_{i_1}^T) \ldots  (M_{i_p} \otimes I + \epsilon_{i_p} I \otimes M_{i_p}^T) \big)
+\begin{align}\label{eq:trdp}
+\Tr D^p &= \sum_{i_1, \ldots, i_p} \Tr (\omega_{i_1} \cdots \omega_{i_p}) \cdot \notag \\
+&\Tr \big( (M_{i_1} \otimes I + \epsilon_{i_1} I \otimes M_{i_1}^T) \cdots  (M_{i_p} \otimes I + \epsilon_{i_p} I \otimes M_{i_p}^T) \big).
 \end{align}
-Ignoring (for now) the trace over the $\omega$ matrices, a typical term in the sum is:
-\begin{equation}\label{eq:typical}
-\Tr \big( \epsilon_B A \otimes B^* + \epsilon_A B \otimes A^* \big)
+Focus first on the product over (anti-)commutators:
+\begin{equation}\label{eq:prod}
+(M_{i_1} \otimes I + \epsilon_{i_1} I \otimes M_{i_1}^T) \cdots  (M_{i_p} \otimes I + \epsilon_{i_p} I \otimes M_{i_p}^T).
 \end{equation}
-where $A$ and $B$ are related to the product $M_{i_1} \ldots M_{i_p}$ in the following way:
+The following observations are useful for writing the product explicitly.
 \begin{enumerate}
-\item pick $r \geq 0$ numbers $k_1 < \ldots < k_r$ from $\{1, \ldots , p\}$ and call the remaining $p-r$ numbers $j_1 < \ldots < j_{p-r}$;
-\item define $A = M_{i_{k_1}} \ldots M_{i_{k_r}}$ and $B = M_{i_{j_1}} \ldots M_{i_{j_{p-r}}}$ (if $r=0$, $A=I$);
-\item define $\epsilon_A = \epsilon_{i_{k_1}} \ldots \epsilon_{i_{k_r}}$ and $\epsilon_B = \epsilon_{i_{j_1}} \ldots \epsilon_{i_{j_{p-r}}} = \epsilon_A \epsilon_{i_1} \ldots \epsilon_{i_p}$.
+	\item The terms appearing in the product are given by all possible ways to distribute $r$ matrices ($0 \le r \le p$) on the left side of the tensor product, and the remaining $s = p-r$ matrices on the right, but keeping the order of the indices (on each side separately). This means that for example:
+$$ M_{i_1} M_{i_p} \otimes M_{i_2}^T \cdots M_{i_{p-1}}^T $$
+is a valid term with $r=2$ and $s=p-2$, but:
+$$ M_{i_p} M_{i_1} \otimes M_{i_2}^T \cdots M_{i_{p-1}}^T $$
+is not, because on the left side the index $i_p$ appears before $i_1$. When $r=0$ (respectively $s=0$) it is intended that there is an identity matrix on the left (right) side of the tensor product.
+	\item Each term is multiplied by a product of $\epsilon_i$ factors given by the matrices that appear on the right. In the case of the previous example:
+$$ \epsilon_{i_2} \cdots \epsilon_{i_{p-1}} M_{i_1} M_{i_p} \otimes M_{i_2}^T \cdots M_{i_{p-1}}^T. $$
+	\item For each term with $r$ matrices on the left, there is a corresponding one with the same $r$ matrices on the right. Again using the same example:
+$$ \epsilon_{i_1} \epsilon_{i_p} M_{i_2} \cdots M_{i_{p-1}} \otimes M_{i_1}^T M_{i_p}^T. $$
 \end{enumerate}
-In particular, a choice of $A$ completely characterizes $B$. \newline
-By varying $r$ from $0$ to $\left[\frac{p}{2}\right]$ and summing over all possible choices of $k_1 \ldots k_r$, every term in $\Tr D^p$ is generated.\newline
-One can verify that every term in Eq.(\ref{eq:trd4}) ($p=4$) is of that type. For example:
-\begin{align}
-\Tr M_{i_1} [\epsilon_{i_1} &+ \epsilon_{i_2} \epsilon_{i_3} \epsilon_{i_4} *] \Tr ( M_{i_2} M_{i_3} M_{i_4}) = \notag \\
-&\epsilon_{i_2} \epsilon_{i_3} \epsilon_{i_4} \Tr M_{i_1} \Tr (M_{i_2} M_{i_3} M_{i_4})^* + \epsilon_{i_1} \Tr M_{i_1} \Tr ( M_{i_2} M_{i_3} M_{i_4}) = \notag \\
-&\epsilon_{i_2} \epsilon_{i_3} \epsilon_{i_4} \Tr M_{i_1} \Tr (M_{i_2} M_{i_3} M_{i_4})^* + \epsilon_{i_1} \Tr (M_{i_1})^* \Tr ( M_{i_2} M_{i_3} M_{i_4}) = \notag \\
-&\Tr \big( \epsilon_{i_2} \epsilon_{i_3} \epsilon_{i_4}  M_{i_1} \otimes (M_{i_2} M_{i_3} M_{i_4})^* + \epsilon_{i_1}  M_{i_2} M_{i_3} M_{i_4} \otimes M_{i_1}^*  \big)
+It follows that the product (\ref{eq:prod}) can be written as:
+\begin{align}\label{eq:prodsum}
+\sum_{r=0}^{\left \lfloor \frac{p}{2} \right \rfloor} \ \ \sum_{j_1 < \ldots < j_r = 1}^p \Big[ &\epsilon_{i_{k_1}} \cdots \epsilon_{i_{k_s}} (M_{i_{j_1}} \cdots M_{i_{j_r}}) \otimes ( M_{i_{k_1}}^T \cdots M_{i_{k_s}}^T ) + \notag \\
++ &\epsilon_{i_{j_1}} \cdots \epsilon_{i_{j_r}} ( M_{i_{k_1}} \cdots M_{i_{k_s}} ) \otimes ( M_{i_{j_1}}^T \cdots M_{i_{j_r}}^T ) \Big]
 \end{align}
-which is of the form of Eq.(\ref{eq:typical}) upon identifying $M_{i_1}$ with $A$ and $M_{i_2} M_{i_3} M_{i_4}$ with $B$ (in the second equality the reality of $\Tr M_{i_1}$ has been used). \newline
-A way of expressing $\Tr B$ given $A$ is using a modified derivative operator $\D_i$ defined as:
+where $\lfloor \ \rfloor$ denotes the floor function (i.e., the sum in $r$ runs from 0 to the greatest integer less than or equal to $p/2$), $j_1, \ldots, j_r$ are a set of $r$ indices picked from $\{ 1, \ldots, p \}$ in increasing order, and $k_1, \ldots, k_s$ are the remaining ones, also in increasing order.\newline
+Recall now that $\epsilon_i^{-1} = \epsilon_i$ and that $M_i^\dagger = M_i$ for all $i$, so in particular $M_i^T = M_i^*$. Tracing over the product then gives:
 \begin{equation}
-\D_i \equiv \Tr \ \circ \ \frac{\partial}{\partial M_i} 
+\sum_{r=0}^{\left \lfloor \frac{p}{2} \right \rfloor} \ \ \sum_{j_1 < \ldots < j_r = 1}^p \epsilon_{i_{j_1}} \cdots \epsilon_{i_{j_r}} [ 1 + \epsilon^p *] \Tr(M_{i_{j_1}} \cdots M_{i_{j_r}})^* \Tr( M_{i_{k_1}} \cdots M_{i_{k_s}} )
 \end{equation}
-which allows to write:
+where $\epsilon^p$ is defined to be the product $\epsilon_{i_1} \cdots \epsilon_{i_p}$ and the in-line operator $*$ means complex conjugation of everything that appears on the right.\newline
+Notice that the generic term in the sum only depends on the choice of $j_1, \ldots, j_r$. Denote the geneirc term $T(j_1, \ldots, j_r)$. The formula for $\Tr D^p$ can finally be written coincisely as:
 \begin{equation}
-A = M_{i_{k_1}} \ldots M_{i_{k_r}} \implies \Tr B = \D_{i_{k_r}} \ldots \D_{i_{k_1}} \Tr (M_{i_1} \ldots M_{i_p}).
+\Tr D^p = \sum_{i_1, \ldots, i_p} \Tr (\omega_{i_1} \cdots \omega_{i_p}) \Bigg[  \sum_{r=0}^{\left \lfloor \frac{p}{2} \right \rfloor} \ \ \sum_{j_1 < \ldots < j_r = 1}^p T(j_1, \ldots, j_r) \Bigg]
 \end{equation}
-Therefore Eq.(\ref{eq:typical}) becomes:
-\begin{align}
-\epsilon_A&[1+ \epsilon_{i_1} \ldots \epsilon_{i_p} *] (\Tr A)^* \Tr B = \notag \\
-&\epsilon_{i_{k_1}} \ldots \epsilon_{i_{k_r}}[1 + \epsilon_{i_1} \ldots \epsilon_{i_p} * ] (\Tr M_{i_{k_1}} \ldots M_{i_{k_r}})^* \big( \D_{i_{k_r}} \ldots \D_{i_{k_1}} \Tr (M_{i_1} \ldots M_{i_p}) \big).
-\end{align}
-There are some special cases that make the expression simpler, namely:
-\begin{enumerate}
-\item $r=0$ gives a factor $\Tr I = n$;
-\item $r=1, 2$ make $\Tr A$ real;
-\item $p-r=1, 2$ (which can only occur for $p=2, 4$) make $\Tr B$ real. 
-\end{enumerate}
-Putting everything together, $\Tr D^p$ can be written as:
-\begin{align}
-\Tr D^p = \sum_{i_1 \ldots i_p} \Tr \ &\omega_{i_1} \ldots \omega_{i_p} \Bigg[ \sum_{r=0}^{\left[\frac{p}{2}\right]} \ \sum_{k_1 < \ldots < k_r = 1}^p  \epsilon_{i_{k_1}} \ldots \epsilon_{i_{k_r}} [1 + \epsilon_{i_1} \ldots \epsilon_{i_p} * ] \notag \\
-&(\Tr M_{i_{k_1}} \ldots M_{i_{k_r}})^* \big( \D_{i_{k_r}} \ldots \D_{i_{k_1}} \Tr (M_{i_1} \ldots M_{i_p}) \big) \Bigg]. \notag \\
-\end{align}
-where:
-\begin{align}
-r=0 \quad &\longrightarrow \quad n[1+\epsilon_{i_1} \ldots \epsilon_{i_p}*]\Tr (M_{i_1} \ldots M_{i_p}) \\
-r=1 \quad &\longrightarrow \quad \sum_{k_1 = 1}^p \epsilon_{i_{k_1}}  \Tr (M_{i_{k_1}}) [1+\epsilon_{i_1} \ldots \epsilon_{i_p}*] \D_{i_{k_1}} \Tr (M_{i_1} \ldots M_{i_p}) \\
-r=2 \quad &\longrightarrow \quad \sum_{k_1<k_2 = 1}^p \epsilon_{i_{k_1}} \epsilon_{i_{k_2}}  \Tr (M_{i_{k_1}} M_{i_{k_2}}) [1+\epsilon_{i_1} \ldots \epsilon_{i_p}*] \D_{i_{k_2}} \D_{i_{k_1}} \Tr (M_{i_1} \ldots M_{i_p}).
-\end{align}
 
 
 \end{document}
